@@ -1,4 +1,4 @@
-# 🔬 Quantum Capstone Project: Grover's Search Algorithm
+# Quantum Capstone Project: Grover's Search Algorithm
 
 > **A complete, modular implementation of Grover's quantum search algorithm using Qiskit 2.0**
 >
@@ -7,7 +7,7 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 - [What is Grover's Algorithm?](#what-is-grovers-algorithm)
 - [Project Overview](#project-overview)
@@ -23,7 +23,7 @@
 
 ---
 
-## 🎯 What is Grover's Algorithm?
+## What is Grover's Algorithm?
 
 Grover's algorithm is one of the most important quantum algorithms, providing a **quadratic speedup** for searching unsorted databases.
 
@@ -37,7 +37,7 @@ For a database of size N = 2ⁿ:
 - Grover's algorithm needs only about √(N) iterations
 - For 4 qubits (16 states): **3 iterations vs. 16 checks** = **~5x speedup**
 
-> 💡 **Real-world impact**: While the speedup is "only" quadratic (not exponential like Shor's algorithm), Grover's algorithm is broadly applicable to ANY search problem and is provably optimal for unstructured quantum search.
+> **Real-world impact**: While the speedup is "only" quadratic (not exponential like Shor's algorithm), Grover's algorithm is broadly applicable to ANY search problem and is provably optimal for unstructured quantum search.
 
 ---
 
