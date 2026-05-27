@@ -466,6 +466,10 @@ Quantum interference is what makes this work. The oracle creates a phase differe
 **QuLearnLabs AI-SEQ Course 2026**  
 Amaefule Chukwuemeka Timothy Capstone Project
 
+### Author
+
+[**Amaefule Chukwuemeka Timothy**](www.linkedin.com/in/amaefule-chukwuemeka-timothy-act-0b3518213)  
+*Statistics Major | Federal University of Technology, Akure (FUTA)*
 ---
 
 > *"Quantum computing is not just faster computing — it's a fundamentally different way of processing information, and Grover's algorithm is the perfect introduction to that paradigm shift."*
