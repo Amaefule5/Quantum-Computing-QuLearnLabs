@@ -72,15 +72,9 @@ def add_measurement(circuit, inplace=False):
         circuit.measure_all()
         return circuit
     else:
-        #measured = circuit.copy()
-        diagram = circuit.draw(output='text')
-        diagram_text = str(diagram)
-        stdout_encoding = sys.stdout.encoding or "utf-8"
-        printable_diagram = diagram_text.encode(
-            stdout_encoding, errors="replace"
-        ).decode(stdout_encoding)
-        print(printable_diagram)
-        return diagram_text
+        measured = circuit.copy()
+        measured.measure_all()
+        return measured
 
 
 def draw_circuit_text(circuit, title=None):
@@ -162,9 +156,14 @@ def create_comparison_circuits():
     Returns:
         dict: Dictionary of named circuits
     """
-    from .grover import two_qubit_grover_11
-    from .oracle import two_qubit_oracle_11
-    from .diffusion import two_qubit_diffusion
+    try:
+        from .grover import two_qubit_grover_11
+        from .oracle import two_qubit_oracle_11
+        from .diffusion import two_qubit_diffusion
+    except ImportError:
+        from grover import two_qubit_grover_11
+        from oracle import two_qubit_oracle_11
+        from diffusion import two_qubit_diffusion
 
     circuits = {}
 
@@ -198,7 +197,10 @@ if __name__ == "__main__":
     print("CIRCUITS MODULE SELF-TEST")
     print("=" * 60)
 
-    from .grover import two_qubit_grover_11
+    try:
+        from .grover import two_qubit_grover_11
+    except ImportError:
+        from grover import two_qubit_grover_11
 
     # Test 1: Add measurement
     print("\n   [1] Adding measurement:")

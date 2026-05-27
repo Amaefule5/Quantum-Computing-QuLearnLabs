@@ -12,6 +12,7 @@ numpy>=2.2.6
 
 # Circuit visualization and plotting - Python 3.14 compatible
 matplotlib>=3.10.9
+pylatexenc
 
 # Jupyter notebooks for interactive demos
 jupyter==1.1.1

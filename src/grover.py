@@ -29,9 +29,15 @@ STOPPING LATE:  Overshoot, probability decreases again!
 """
 
 from qiskit import QuantumCircuit
-from .utils import validate_solution_string, calculate_optimal_iterations
-from .oracle import two_qubit_oracle_11, four_qubit_oracle
-from .diffusion import two_qubit_diffusion, four_qubit_diffusion
+
+try:
+    from .utils import validate_solution_string, calculate_optimal_iterations
+    from .oracle import two_qubit_oracle_11, four_qubit_oracle
+    from .diffusion import two_qubit_diffusion, four_qubit_diffusion
+except ImportError:
+    from utils import validate_solution_string, calculate_optimal_iterations
+    from oracle import two_qubit_oracle_11, four_qubit_oracle
+    from diffusion import two_qubit_diffusion, four_qubit_diffusion
 
 
 def two_qubit_grover_11():
@@ -157,12 +163,16 @@ if __name__ == "__main__":
 
     from qiskit.quantum_info import Statevector
     import numpy as np
+    try:
+        from .circuits import draw_circuit_text
+    except ImportError:
+        from circuits import draw_circuit_text
 
     # Test 1: Two-qubit circuit
     print("\n   [1] Two-qubit Grover (solution |11>):")
     qc2 = two_qubit_grover_11()
     print(f"Gates: {len(qc2.data)}")
-    print(qc2.draw(output='text'))
+    draw_circuit_text(qc2)
 
     sv2 = Statevector.from_instruction(qc2)
     probs2 = np.abs(sv2.data) ** 2
