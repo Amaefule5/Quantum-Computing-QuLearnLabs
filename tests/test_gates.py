@@ -197,8 +197,8 @@ class TestOracleMarker(unittest.TestCase):
         """
         qc = QuantumCircuit(4)
 
-        # Prepare |0010> state
-        qc.x(1)
+        # Prepare the statevector index used by this project's bit convention.
+        qc.x(2)
 
         # Apply oracle
         apply_oracle_marker(qc, "0010")

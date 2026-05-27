@@ -18,6 +18,33 @@ quantum algorithm; this module handles how we see and test it.
 from qiskit import QuantumCircuit
 from qiskit.visualization import plot_histogram
 import matplotlib.pyplot as plt
+import sys
+import warnings
+
+BOX_DRAWING_TO_ASCII = str.maketrans({
+    "┌": "+",
+    "┐": "+",
+    "└": "+",
+    "┘": "+",
+    "╭": "+",
+    "╮": "+",
+    "╰": "+",
+    "╯": "+",
+    "├": "+",
+    "┤": "+",
+    "┬": "+",
+    "┴": "+",
+    "┼": "+",
+    "╞": "+",
+    "╡": "+",
+    "╪": "+",
+    "─": "-",
+    "═": "-",
+    "│": "|",
+    "║": "|",
+    "■": "*",
+    "●": "*",
+})
 
 
 def add_measurement(circuit, inplace=False):
@@ -45,9 +72,15 @@ def add_measurement(circuit, inplace=False):
         circuit.measure_all()
         return circuit
     else:
-        measured = circuit.copy()
-        measured.measure_all()
-        return measured
+        #measured = circuit.copy()
+        diagram = circuit.draw(output='text')
+        diagram_text = str(diagram)
+        stdout_encoding = sys.stdout.encoding or "utf-8"
+        printable_diagram = diagram_text.encode(
+            stdout_encoding, errors="replace"
+        ).decode(stdout_encoding)
+        print(printable_diagram)
+        return diagram_text
 
 
 def draw_circuit_text(circuit, title=None):
@@ -66,18 +99,37 @@ def draw_circuit_text(circuit, title=None):
     Returns:
         str: Text representation of the circuit
     """
+    diagram_text = str(diagram)
+    diagram_text = diagram_text.translate(BOX_DRAWING_TO_ASCII)
+    stdout_encoding = sys.stdout.encoding or "utf-8"
+
     if title:
         print(f"{'='*50}")
         print(f"  {title}")
         print(f"{'='*50}")
 
+    with warnings.catch_warnings():
+        warnings.filterwarnings(
+            "ignore",
+            message="The encoding .* has a limited charset.*",
+            category=RuntimeWarning,
+        )
+        diagram = circuit.draw(output='text')
+    diagram_text = str(diagram)
     diagram = circuit.draw(output='text')
-    print(diagram)
+    diagram_text = str(diagram)
+    diagram_text = diagram_text.translate(BOX_DRAWING_TO_ASCII)
+    
+    stdout_encoding = sys.stdout.encoding or "utf-8"
+    printable_diagram = diagram_text.encode(
+        stdout_encoding, errors="replace"
+    ).decode(stdout_encoding)
+    print(printable_diagram)
 
     print(f"\n  Qubits: {circuit.num_qubits}")
     print(f"  Gates: {len(circuit.data)}")
 
-    return str(diagram)
+    return diagram_text
 
 
 def print_circuit_info(circuit):

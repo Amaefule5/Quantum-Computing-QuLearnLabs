@@ -24,6 +24,11 @@ This is a fundamental technique in quantum circuit design!
 from qiskit import QuantumCircuit
 
 
+def get_gate_list(circuit):
+    """Return the gate names used by a circuit in order."""
+    return [instruction.name for instruction in circuit.data]
+
+
 def apply_hadamard_all(circuit, qubits=None):
     """
     Apply Hadamard gates to all specified qubits.

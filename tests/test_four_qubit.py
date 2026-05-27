@@ -118,13 +118,12 @@ class TestFourQubitGrover(unittest.TestCase):
         state = Statevector.from_instruction(qc)
         probabilities = np.abs(state.data) ** 2
 
-        print(f"
-Probability distribution for solution |{solution}>:")
+        print(f"\n  Probability distribution for solution |{solution}>:")
         print("-" * 40)
         for i in range(16):
             bits = format(i, '04b')
             marker = " <- SOLUTION" if i == expected_index else ""
-            bar = "█" * int(probabilities[i] * 30)
+            bar = "#" * int(probabilities[i] * 30)
             print(f"|{bits}>: {probabilities[i]:.4f} {bar}{marker}")
         print("-" * 40)
 
@@ -182,11 +181,10 @@ Probability distribution for solution |{solution}>:")
         For 4 qubits: floor(pi/4 * sqrt(16)) = 3
         """
         qc = four_qubit_grover("0000")
-        total_gates = len(qc.data)
+        mcx_count = sum(1 for instruction in qc.data if instruction.name == "mcx")
 
-        # Should be between 70 and 90 gates for 3 iterations
-        self.assertGreater(total_gates, 70, "Too few gates - maybe only 2 iterations?")
-        self.assertLess(total_gates, 90, "Too many gates - maybe 4 iterations?")
+        # Each Grover iteration has one oracle MCX and one diffusion MCX.
+        self.assertEqual(mcx_count, 6)
 
 
 if __name__ == "__main__":

@@ -113,7 +113,7 @@ class TestTwoQubitGrover(unittest.TestCase):
         - 1 CZ gate (diffusion)
         - 2 X gates (diffusion)
         - 2 H gates (diffusion end)
-        Total: 10 gates
+        Total: 12 gates
         """
         qc = two_qubit_grover_11()
 
@@ -125,7 +125,7 @@ class TestTwoQubitGrover(unittest.TestCase):
         self.assertEqual(gate_counts.get("h", 0), 6, "Should have 6 H gates")
         self.assertEqual(gate_counts.get("x", 0), 4, "Should have 4 X gates")
         self.assertEqual(gate_counts.get("cz", 0), 2, "Should have 2 CZ gates")
-        self.assertEqual(len(qc.data), 10, "Total should be 10 gates")
+        self.assertEqual(len(qc.data), 12, "Total should be 12 gates")
 
 
 class TestFourQubitGrover(unittest.TestCase):

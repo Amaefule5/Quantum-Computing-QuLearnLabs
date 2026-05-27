@@ -27,14 +27,15 @@ def validate_solution_string(solution, expected_length=4):
     """
     if len(solution) != expected_length:
         raise ValueError(
-            f"solution must be exactly {expected_length} bits, got: {len(solution)}"
+            f"solution must be a {expected_length}-bit string, got {len(solution)} bits"
         )
 
     valid_chars = {"0", "1"}
     for i, char in enumerate(solution):
         if char not in valid_chars:
             raise ValueError(
-                f"solution must contain only '0' or '1', got: {solution} "
+                f"solution must be a {expected_length}-bit string containing only "
+                f"'0' or '1', got: {solution} "
                 f"(invalid char '{char}' at position {i})"
             )
 
@@ -116,7 +117,7 @@ def print_statevector_probabilities(statevector_data, highlight_index=None):
         bits = format(i, f"0{num_qubits}b")
         prob = abs(statevector_data[i]) ** 2
         bar_length = int(prob * 40)
-        bar = "█" * bar_length
+        bar = "#" * bar_length
         marker = " <-- SOLUTION" if i == highlight_index else ""
         print(f"|{bits}>: {prob:.4f} {bar}{marker}")
 
